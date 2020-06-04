@@ -1,0 +1,85 @@
+$toolbar-height: 5rem;
+
+.toolbar {
+  height: $toolbar-height;
+}
+
+.map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__img {
+    width: 100%;
+    height: calc(100vh - $toolbar-height);
+  }
+
+  &__button-container {
+    position: absolute;
+    width: 100%;
+  }
+
+  &__statistics-container {
+    display: flex;
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+
+  width: 15rem;
+
+  margin: 1rem 0;
+}
+
+.radio-group {
+  margin: 1rem 0;
+  &__values {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    height: 5rem;
+  }
+}
+
+.statistic-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 0.5rem;
+
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.statistic-title {
+  font-size: xx-small;
+}
+
+.statistic-content {
+  &--sliders {
+    display: flex;
+    flex-direction: column;
+  }
+}
