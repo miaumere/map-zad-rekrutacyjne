@@ -9,13 +9,18 @@ $toolbar-height: 5rem;
   justify-content: center;
   align-items: center;
   &__img {
+    max-height: calc(100vh - #{$toolbar-height});
     width: 100%;
-    height: calc(100vh - $toolbar-height);
+
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   &__button-container {
     position: absolute;
-    width: 100%;
+    top: 15%;
+    left: 50%;
   }
 
   &__statistics-container {
