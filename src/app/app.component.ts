@@ -18,28 +18,9 @@ export class AppComponent {
     checkboxValue: new FormControl('')
   });
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor() { }
 
 
-
-  submit() {
-    let controlsValuesMsg = `Wprowadzone wartości: `;
-
-    for (const key in this.sideNavForm.controls) {
-      if (this.sideNavForm.controls.hasOwnProperty(key)) {
-        const element = this.sideNavForm.controls[key]?.value;
-        controlsValuesMsg += element;
-        if (key !== 'checkboxValue') {
-          controlsValuesMsg += ', ';
-        }
-      }
-    }
-
-    this.snackBar.open(controlsValuesMsg, 'Ok', {
-      duration: 2000,
-    });
-
-  }
 
 
 
