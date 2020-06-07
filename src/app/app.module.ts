@@ -15,12 +15,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
-import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PieChartComponent
+    MapComponent
   ],
   imports: [
     CommonModule,
