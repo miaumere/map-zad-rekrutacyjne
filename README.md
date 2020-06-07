@@ -1,4 +1,9 @@
 ## Uruchomienie
+Przed pierwszym uruchomieniem aplikacji trzeba pobrać wszystkie zależności przy użyciu komendy
+```
+npm install
+```
+
 W kontekście katalogu głównego należy uruchomić aplikacje komendą:
 
 ```
