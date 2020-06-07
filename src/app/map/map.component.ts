@@ -1,18 +1,16 @@
 import { MapService } from './../map.service';
 import { AfterViewInit, Component } from '@angular/core';
-import { defaults as defaultControls } from 'ol/control';
-
-import XYZ from 'ol/source/XYZ';
-import ZoomToExtent from 'ol/control/ZoomToExtent';
 import 'ol/ol.css';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import { Map, View } from 'ol';
+import TileLayer from 'ol/layer/Tile';
+import XYZSource from 'ol/source/XYZ';
+import { fromLonLat } from 'ol/proj';
 import Feature from 'ol/Feature';
-import Geolocation from 'ol/Geolocation';
-import Map from 'ol/Map';
-import View from 'ol/View';
+import { circular } from 'ol/geom/Polygon';
 import Point from 'ol/geom/Point';
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import { OSM, Vector as VectorSource } from 'ol/source';
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -23,108 +21,50 @@ export class MapComponent implements AfterViewInit {
   constructor(private mapService: MapService) { }
 
 
-  map = new Map({
-    layers: [
-      new TileLayer({
-        source: new OSM()
-      })
-    ],
-    target: 'map',
-    view: new View({
-      center: [0, 0],
-      zoom: 2
-    })
-  });
-  geolocation
-
   ngAfterViewInit(): void {
-    this.test();
-    throw new Error("Method not implemented.");
-  }
-
-  // el(id) {
-  //   return document.getElementById(id);
-  // }
-
-  // el('track').addEventListener('change', function() {
-  //   geolocation.setTracking(this.checked);
-  // });
-
-  // update the HTML page when the position changes.
-  test() {
-    const geolocation = new Geolocation({
-      // enableHighAccuracy must be set to true to have the heading value.
-      trackingOptions: {
-        enableHighAccuracy: true
-      },
-      projection: this.map.view.getProjection()
-    });
-
-    this.geolocation = geolocation;
-
-    // this.geolocation.on('change', function() {
-
-
-    //   el('accuracy').innerText = this.geolocation.getAccuracy() + ' [m]';
-    //   el('altitude').innerText = this.geolocation.getAltitude() + ' [m]';
-    //   el('altitudeAccuracy').innerText = this.geolocation.getAltitudeAccuracy() + ' [m]';
-    //   el('heading').innerText = this.geolocation.getHeading() + ' [rad]';
-    //   el('speed').innerText = this.geolocation.getSpeed() + ' [m/s]';
-    // });
-
-    // handle geolocation error.
-    this.geolocation.on('error', function (error) {
-      const info = document.getElementById('info');
-      info.innerHTML = error.message;
-      info.style.display = '';
-    });
-
-    const accuracyFeature = new Feature();
-    this.geolocation.on('change:accuracyGeometry', function () {
-      accuracyFeature.setGeometry(this.geolocation.getAccuracyGeometry());
-    });
-
-    const positionFeature = new Feature();
-    positionFeature.setStyle(new Style({
-      image: new CircleStyle({
-        radius: 6,
-        fill: new Fill({
-          color: '#3399CC'
-        }),
-        stroke: new Stroke({
-          color: '#fff',
-          width: 2
+    const map = new Map({
+      target: 'map-container',
+      layers: [
+        new TileLayer({
+          source: new XYZSource({
+            url: 'http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg'
+          })
         })
-      })
-    }));
-
-    this.geolocation.on('change:position', function () {
-      const coordinates = this.geolocation.getPosition();
-      positionFeature.setGeometry(coordinates ?
-        new Point(coordinates) : null);
-    });
-
-    new VectorLayer({
-      map: this.map,
-      source: new VectorSource({
-        features: [accuracyFeature, positionFeature]
+      ],
+      view: new View({
+        center: fromLonLat([0, 0]),
+        zoom: 2
       })
     });
+
+    const source = new VectorSource();
+    const layer = new VectorLayer({
+      source: source
+    });
+    map.addLayer(layer);
+
+    navigator.geolocation.watchPosition(function (pos) {
+      const coords = [pos.coords.longitude, pos.coords.latitude];
+      const accuracy = circular(coords, pos.coords.accuracy);
+      source.clear(true);
+      source.addFeatures([
+        new Feature(accuracy.transform('EPSG:4326', map.getView().getProjection())),
+        new Feature(new Point(fromLonLat(coords)))
+      ]);
+    }, function (error) {
+      alert(`ERROR: ${error.message}`);
+    }, {
+      enableHighAccuracy: true
+    });
+
+
+    this.test();
   }
 
-  //   let longitude: number;
-  //   let latitude: number;
+  test() {
+
+  }
 
 
-  //   // jak error trzeba jakis modal czy cos
-  //   this.mapService.getPosition().then(geolocation => {
-  //     longitude = geolocation?.lng;
-  //     latitude = geolocation?.lat;
-  //     console.log(geolocation);
-
-
-  //   });
-
-  // }
 
 }
