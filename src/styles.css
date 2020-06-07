@@ -7,3 +7,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.locate {
+  top: 6em;
+  left: 0.5em;
+}

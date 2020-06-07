@@ -1,4 +1,3 @@
-import { MapService } from './../map.service';
 import { AfterViewInit, Component } from '@angular/core';
 import 'ol/ol.css';
 import VectorLayer from 'ol/layer/Vector';
@@ -10,6 +9,7 @@ import { fromLonLat } from 'ol/proj';
 import Feature from 'ol/Feature';
 import { circular } from 'ol/geom/Polygon';
 import Point from 'ol/geom/Point';
+import Control from 'ol/control/Control';
 
 @Component({
   selector: 'app-map',
@@ -17,9 +17,6 @@ import Point from 'ol/geom/Point';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
-
-  constructor(private mapService: MapService) { }
-
 
   ngAfterViewInit(): void {
     const map = new Map({
@@ -43,7 +40,7 @@ export class MapComponent implements AfterViewInit {
     });
     map.addLayer(layer);
 
-    navigator.geolocation.watchPosition(function (pos) {
+    navigator.geolocation.watchPosition((pos) => {
       const coords = [pos.coords.longitude, pos.coords.latitude];
       const accuracy = circular(coords, pos.coords.accuracy);
       source.clear(true);
@@ -51,12 +48,26 @@ export class MapComponent implements AfterViewInit {
         new Feature(accuracy.transform('EPSG:4326', map.getView().getProjection())),
         new Feature(new Point(fromLonLat(coords)))
       ]);
-    }, function (error) {
+    }, (error) => {
       alert(`ERROR: ${error.message}`);
     }, {
       enableHighAccuracy: true
     });
 
+    const locate = document.createElement('div');
+    locate.className = 'ol-control ol-unselectable locate';
+    locate.innerHTML = '<button title="Locate me">◎</button>';
+    locate.addEventListener('click', function () {
+      if (!source.isEmpty()) {
+        map.getView().fit(source.getExtent(), {
+          maxZoom: 18,
+          duration: 500
+        });
+      }
+    });
+    map.addControl(new Control({
+      element: locate
+    }));
 
     this.test();
   }
