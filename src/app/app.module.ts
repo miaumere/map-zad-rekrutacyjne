@@ -27,17 +27,7 @@ import { MapComponent } from './map/map.component';
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatSliderModule,
-    MatCardModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

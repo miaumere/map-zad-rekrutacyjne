@@ -15,13 +15,20 @@ export class AppComponent {
   sideNavForm = new FormGroup({
     firstValue: new FormControl('', Validators.required),
     optionValue: new FormControl('', Validators.required),
-    checkboxValue: new FormControl('')
+    radioValue: new FormControl('')
   });
 
   constructor() { }
 
+  submit() {
+
+  }
 
 
+  cancel() {
+    this.sideNavForm.reset();
+
+  }
 
 
 }

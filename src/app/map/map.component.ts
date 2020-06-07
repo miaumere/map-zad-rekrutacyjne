@@ -36,7 +36,7 @@ export class MapComponent implements AfterViewInit {
 
     const source = new VectorSource();
     const layer = new VectorLayer({
-      source: source
+      source
     });
     map.addLayer(layer);
 
@@ -56,8 +56,8 @@ export class MapComponent implements AfterViewInit {
 
     const locate = document.createElement('div');
     locate.className = 'ol-control ol-unselectable locate';
-    locate.innerHTML = '<button title="Locate me">◎</button>';
-    locate.addEventListener('click', function () {
+    locate.innerHTML = '<button title="Pokaż lokalizację">◎</button>';
+    locate.addEventListener('click', () => {
       if (!source.isEmpty()) {
         map.getView().fit(source.getExtent(), {
           maxZoom: 18,
@@ -68,14 +68,6 @@ export class MapComponent implements AfterViewInit {
     map.addControl(new Control({
       element: locate
     }));
-
-    this.test();
   }
-
-  test() {
-
-  }
-
-
 
 }
