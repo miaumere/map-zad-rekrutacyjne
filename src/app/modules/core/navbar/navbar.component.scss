@@ -1,0 +1,11 @@
+@import "src/app/styles/variables.scss";
+
+.navbar {
+  display: block;
+
+  height: $navbarHeight;
+
+  background: $appMainColor;
+
+  border: 2px solid rgba(0, 0, 0, 0.05);
+}

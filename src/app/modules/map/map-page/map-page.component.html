@@ -1,0 +1,33 @@
+<div class="map-page-container">
+  <form [formGroup]="sideNavForm">
+    <label>
+      Podaj wartość:
+      <input type="text" formControlName="firstValue" />
+    </label>
+
+    <label>
+      Wybierz opcje:
+      <select formControlName="optionValue">
+        <option *ngFor="let option of options" [value]="option">{{
+          option
+        }}</option>
+      </select>
+    </label>
+    <label>
+      Wyświetlaj dane:
+      <input type="radio" formControlName="radioValue" value="false" /> tak
+      <input type="radio" formControlName="radioValue" value="true" /> nie
+    </label>
+
+    <button (click)="submit()" [disabled]="sideNavForm.invalid">Wyślij</button>
+    <button (click)="cancel()">Anuluj</button>
+  </form>
+
+  <app-side-menu *ngIf="menuOpenStatus"></app-side-menu>
+</div>
+
+<button class="open-menu-button" (click)="menuOpenStatus = !menuOpenStatus">
+  Menu
+</button>
+
+<router-outlet></router-outlet>

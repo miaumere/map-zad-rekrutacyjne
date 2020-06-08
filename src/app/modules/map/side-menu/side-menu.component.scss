@@ -1,0 +1,83 @@
+@import "src/app/styles/variables.scss";
+
+:host {
+  position: fixed;
+  top: $navbarHeight;
+  right: 0;
+
+  height: calc(100vh - #{$navbarHeight});
+  width: 480px;
+
+  background: white;
+}
+
+.side-menu {
+  display: flex;
+  height: 100%;
+
+  &__element {
+    flex: 1;
+
+    &--cancel-bar {
+      max-width: 50px;
+      background: $appMainColor;
+      border: 2px solid rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.side-menu-values {
+  &__header {
+    margin: 0;
+    padding: 25px;
+
+    &--small {
+      font-weight: normal;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.sections-container {
+  &__name {
+    $nameSectionHeight: 65px;
+
+    height: $nameSectionHeight;
+
+    padding-left: 25px;
+
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: $appMainColor;
+
+    line-height: $nameSectionHeight;
+  }
+}
+
+.section-values-container {
+  display: flex;
+  padding-top: 25px;
+
+  &__section {
+    &--radio {
+      flex: 2;
+      display: flex;
+      justify-content: center;
+    }
+
+    &--value {
+      flex: 8;
+    }
+    &--icon {
+      flex: 2;
+    }
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__desc {
+    margin-top: 20px;
+    white-space: pre-line;
+  }
+}

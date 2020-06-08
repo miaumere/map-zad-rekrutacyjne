@@ -1,0 +1,42 @@
+<aside class="side-menu">
+  <div class="side-menu__element side-menu-values">
+    <h3 class="side-menu-values__header">Model based data extraction</h3>
+    <h4 class="side-menu-values__header side-menu-values__header--small">
+      Spatiotemporal forcings
+    </h4>
+
+    <div *ngFor="let section of sections" class="sections-container">
+      <div class="sections-container__name">{{ section.sectionName }}</div>
+      <div
+        class="section-values-container"
+        *ngFor="let sectionValue of section.sectionValues"
+      >
+        <div
+          class="section-values-container__section section-values-container__section--radio"
+        >
+          <input
+            [name]="section.sectionName"
+            type="radio"
+            [value]="sectionValue.title"
+          />
+        </div>
+        <div
+          class="section-values-container__section section-values-container__section--value"
+        >
+          <div class="section-values-container__title">
+            {{ sectionValue.title }}
+          </div>
+          <div class="section-values-container__desc">
+            {{ sectionValue.desc }}
+          </div>
+        </div>
+        <div
+          class="section-values-container__section section-values-container__section--icon"
+        >
+          ICON
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="side-menu__element side-menu__element--cancel-bar">ICON</div>
+</aside>
